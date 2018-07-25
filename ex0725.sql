@@ -122,6 +122,18 @@ where a.cust_id = b.cust_id and b.country_id = c.country_id
 group by substr(sales_month, 1, 4)
 );
 
+select years,
+max(amount_sold)
+from (
+select substr(a.sales_month, 1, 4) as years, a.employee_id, sum(a.amount_sold) as amount_sold
+from sales a, customers b, countries c
+where a.cust_id = b.cust_id and b.country_id = c.country_id and c.country_name = 'Italy'
+group by substr(a.sales_month, 1, 4), a.employee_id)
+group by years;
+
+
+
+
 
 
 
